@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect
 import User
+import csv
 
 #array of users
-users = []
+#users = []
 
 app = Flask(__name__)
 
@@ -19,10 +20,15 @@ def register():
 
     if not name or not password:
         return render_template("failure.html")
-    users.append(User.User(name,password))
-    print(users)
+    file = open("registered_users.csv", "a")
+    writer = csv.writer(file)
+    writer.writerow((name, password))
+    file.close()
     return redirect("/registrants")
 
 @app.route("/registrants")
 def registrants():
+    with open("registered_users.csv", "r") as file:
+        reader = csv.reader(file)
+        users = list(reader)
     return render_template("registered.html", users=users)
