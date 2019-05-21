@@ -3,8 +3,8 @@
 {% block body %}
  <h1>Sign up or log in</h1>
         <form action="/register" autocomplete="off" method="post">
-            <input type="text" name="name" placeholder="Username">
-            <input type="text" name="password" placeholder="Password">
+            <input id="name" type="text" name="name" placeholder="Username">
+            <input id="password" type="text" name="password" placeholder="Password">
             <select name="type">
                 <option value="Regular">Regular</option>
                 <option value="Admin">Admin</option>
@@ -12,4 +12,14 @@
             </select>
             <input type="submit" value="Register">
         </form>
+        <script>
+               document.querySelector('form').onsubmit = function() {
+            if (!document.getElementById('name').value || !document.getElementById('password').value) {
+                alert('You must provide your name and password!');
+                return false;
+            };
+            return true;
+            };
+
+        </script>
 {% endblock %}

@@ -17,12 +17,13 @@ def hello():
 def register():
     name = request.form.get("name")
     password = request.form.get("password")
+    chips = 1000
 
     if not name or not password:
         return render_template("failure.html")
     file = open("registered_users.csv", "a")
     writer = csv.writer(file)
-    writer.writerow((name, password))
+    writer.writerow((name, password, chips))
     file.close()
     return redirect("/registrants")
 
